@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Guía PMR – Pasajeros con Movilidad Reducida en el transporte aéreo"
+description = "Guía informativa en español de Argentina sobre asistencia a pasajeros con movilidad reducida en el transporte aéreo, el circuito aeroportuario, normativa y fuentes primarias."
+version = "1.0.0"
+id = "artifacts/guia-pmr"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22350
+
+[services.development]
+run = "pnpm --filter @workspace/guia-pmr run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/guia-pmr", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/guia-pmr/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22350"
+BASE_PATH = "/"
