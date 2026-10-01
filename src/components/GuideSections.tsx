@@ -1,4 +1,7 @@
 import { ArrowDownRight, ArrowUpRight, Info } from 'lucide-react';
+import { CopyButton } from '@/components/ui/copy-button';
+import { TextAnimate } from '@/components/ui/text-animate';
+import { TextureOverlay } from '@/components/ui/texture-overlay';
 import { guide } from '../content/guide';
 
 // Cada bloque de contenido tiene su propio componente y su propio ancla.
@@ -31,7 +34,10 @@ export function HeroSection() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <span className="eyebrow">{c.eyebrow}</span>
-          <h1 id="hero-title">{c.titleStart}<br/><em>{c.titleAccent}</em></h1>
+          <h1 id="hero-title">
+            <TextAnimate text={c.titleStart} type="fadeIn" custom={1} className="block" />
+            <em><TextAnimate text={c.titleAccent} type="fadeIn" custom={2.4} className="block" /></em>
+          </h1>
           <p className="hero-intro">{c.intro}</p>
           <div className="hero-links">
             <a href="#asistencia" className="hero-link primary" data-testid="link-hero-assistance">{c.actionPrimary}<ArrowDownRight aria-hidden="true"/></a>
@@ -56,6 +62,7 @@ export function DefinitionSection() {
           <p className="section-lead">{c.lead}</p>
         </div>
         <div className="definition-card">
+          <TextureOverlay texture="paperGrain" opacity={0.55} />
           <span className="status-tag" data-testid="status-definition">{c.status}</span>
           <h3>{c.cardTitle}</h3>
           <ul className="question-list">{c.questions.map(question => <li key={question}>{question}</li>)}</ul>
@@ -123,6 +130,7 @@ export function RegulationsSection() {
         </div>
         <div className="rules-layout">
           {c.cards.map((card, index) => <article className={`rule-card ${index === 0 ? 'featured' : ''} ${card.pending ? 'compact' : ''}`} key={card.title} data-testid={`card-regulation-${index}`}>
+            <TextureOverlay texture="paperGrain" opacity={index === 0 ? 0.3 : 0.45} className={index === 0 ? 'invert' : undefined} />
             <div><span className="micro">{card.region}</span><h3>{card.title}</h3>{'body' in card && <p>{card.body}</p>}</div>
             {card.pending && <span className="status-tag">{c.pending}</span>}
           </article>)}
@@ -146,7 +154,13 @@ export function SourcesSection() {
         <ol className="sources-list">
           {c.items.map((source, index) => <li className="source-item" key={source.url}>
             <span className="source-number">{String(index + 1).padStart(2, '0')}</span>
-            <div><p>{source.citation}</p><a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.open}: ${source.citation} (se abre en una pestaña nueva)`} data-testid={`link-source-${index + 1}`}>{c.open}<ArrowUpRight aria-hidden="true"/></a></div>
+            <div>
+              <p>{source.citation}</p>
+              <div className="source-actions">
+                <a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.open}: ${source.citation} (se abre en una pestaña nueva)`} data-testid={`link-source-${index + 1}`}>{c.open}<ArrowUpRight aria-hidden="true"/></a>
+                <CopyButton value={source.citation} label={`${c.copy}: ${source.citation}`} className="source-copy" data-testid={`button-copy-source-${index + 1}`} />
+              </div>
+            </div>
             <span className="source-label">{c.primary}</span>
           </li>)}
         </ol>

@@ -113,6 +113,7 @@ export const guide = {
     lead: 'Referencias primarias para consultar los textos normativos. Formato de presentación APA 7.',
     primary: 'Fuente primaria',
     open: 'Consultar fuente',
+    copy: 'Copiar cita',
     items: [
       {
         citation: 'Decreto 809/2024. (2024, 10 de septiembre). Boletín Oficial de la República Argentina.',
