@@ -64,6 +64,12 @@ export function DefinitionSection() {
         <div className="definition-card">
           <TextureOverlay texture="paperGrain" opacity={0.55} />
           <span className="status-tag" data-testid="status-definition">{c.status}</span>
+          <h3>{c.definitionsTitle}</h3>
+          <ul className="definition-list">{c.definitions.map(item => <li key={item.source}>
+            <span className="micro">{item.source}</span>
+            <p>{item.text}</p>
+            <small>{item.note}</small>
+          </li>)}</ul>
           <h3>{c.cardTitle}</h3>
           <ul className="question-list">{c.questions.map(question => <li key={question}>{question}</li>)}</ul>
           <p className="card-note">{c.note}</p>
