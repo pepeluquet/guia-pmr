@@ -157,6 +157,11 @@ p { max-width: 68ch; }
 .question-list { margin: 0; padding: 0; list-style: none; }
 .question-list li { display: flex; gap: 15px; padding: 17px 0; border-top: 1px solid #ddd6c9; font-size: 1.04rem; line-height: 1.55; }
 .question-list li::before { content: '?'; font-family: var(--app-font-mono); color: #b2552e; font-weight: 700; }
+.definition-list { margin: 0 0 8px; padding: 0; list-style: none; }
+.definition-list li { padding: 18px 0; border-top: 1px solid #ddd6c9; }
+.definition-list .micro { color: #af542f; display: block; margin-bottom: 8px; }
+.definition-list p { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.6; }
+.definition-list small { color: #647076; font-size: .82rem; line-height: 1.5; display: block; }
 .card-note { color: #647076; font-size: .85rem; margin: 22px 0 0; }
 
 .assistance-section { background: #f8f6f0; }
