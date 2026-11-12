@@ -26,3 +26,5 @@ desktop.ini
 .vscode/*
 !.vscode/extensions.json
 .idea/
+.claude/settings.local.json
+.claude/launch.json

@@ -1,5 +1,5 @@
 import { SiteHeader } from './components/SiteHeader';
-import { AssistanceSection, DefinitionSection, HeroSection, JourneySection, RegulationsSection, SiteFooter, SourcesSection } from './components/GuideSections';
+import { AssistanceSection, ComplaintsSection, DefinitionSection, HeroSection, JourneySection, QuizSection, RegulationsSection, SiteFooter, SourcesSection } from './components/GuideSections';
 import { guide } from './content/guide';
 
 // Página única: el orden de los componentes reproduce el recorrido de lectura.
@@ -12,8 +12,12 @@ function App() {
         <HeroSection />
         <DefinitionSection />
         <AssistanceSection />
+        {/* El cuestionario va justo después de "Cómo pedir asistencia". */}
+        <QuizSection />
         <JourneySection />
         <RegulationsSection />
+        {/* "Si algo salió mal" va antes de las fuentes. */}
+        <ComplaintsSection />
         <SourcesSection />
       </main>
       <SiteFooter />

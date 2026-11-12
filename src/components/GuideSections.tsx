@@ -2,6 +2,7 @@ import { ArrowDownRight, ArrowUpRight, Info } from 'lucide-react';
 import { CopyButton } from '@/components/ui/copy-button';
 import { TextAnimate } from '@/components/ui/text-animate';
 import { TextureOverlay } from '@/components/ui/texture-overlay';
+import { AssistanceQuiz } from './AssistanceQuiz';
 import { guide } from '../content/guide';
 
 // Cada bloque de contenido tiene su propio componente y su propio ancla.
@@ -91,7 +92,8 @@ export function AssistanceSection() {
         </div>
         <div className="notice">
           <Info className="notice-icon" aria-hidden="true"/>
-          <div><p><strong>{c.notice}</strong></p><span className="verification" data-testid="status-verification">{c.verification}</span></div>
+          {/* Aviso confirmado: el texto y debajo la referencia a la norma, sin cartel de verificación. */}
+          <div><p><strong>{c.notice}</strong></p><p className="notice-reference" data-testid="text-notice-reference">{c.noticeReference}</p></div>
         </div>
         <div className="table-wrap">
           <div className="table-caption"><h3 id="ssr-caption">{c.tableTitle}</h3><span>{c.tableDetail}</span></div>
@@ -100,6 +102,24 @@ export function AssistanceSection() {
             <tbody>{c.codes.map(row => <tr key={row.code} data-testid={`row-ssr-${row.code}`}><td><span className="table-code">{row.code}</span></td><td>{row.meaning}</td></tr>)}</tbody>
           </table>
         </div>
+      </div>
+    </section>
+  );
+}
+
+// Sección del cuestionario: el encabezado es igual al de las demás secciones
+// y la lógica interactiva vive en su propio componente (AssistanceQuiz).
+export function QuizSection() {
+  const c = guide.quiz;
+  return (
+    <section id="cuestionario" className="section quiz-section" aria-labelledby="quiz-title">
+      <div className="container section-grid">
+        <div className="section-head">
+          <span className="section-index">{c.index}</span>
+          <h2 className="section-title" id="quiz-title">{c.title}</h2>
+          <p className="section-lead">{c.lead}</p>
+        </div>
+        <AssistanceQuiz />
       </div>
     </section>
   );
@@ -147,6 +167,35 @@ export function RegulationsSection() {
   );
 }
 
+// Sección "Si algo salió mal": una lista numerada de pasos y un consejo final.
+export function ComplaintsSection() {
+  const c = guide.complaints;
+  return (
+    <section id="reclamos" className="section complaints-section" aria-labelledby="complaints-title">
+      <div className="container section-grid">
+        <div className="section-head">
+          <span className="section-index">{c.index}</span>
+          <h2 className="section-title" id="complaints-title">{c.title}</h2>
+          <p className="section-lead">{c.lead}</p>
+        </div>
+        <div>
+          <ol className="complaint-steps">
+            {c.steps.map((step, index) => <li className="complaint-step" key={step.title} data-testid={`complaint-step-${index + 1}`}>
+              <span className="micro">{c.stepLabel} {index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>)}
+          </ol>
+          <div className="notice complaint-tip">
+            <Info className="notice-icon" aria-hidden="true"/>
+            <p><strong>{c.tipLabel}:</strong> {c.tip}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function SourcesSection() {
   const c = guide.sources;
   return (
@@ -158,12 +207,15 @@ export function SourcesSection() {
           <p className="section-lead">{c.lead}</p>
         </div>
         <ol className="sources-list">
-          {c.items.map((source, index) => <li className="source-item" key={source.url}>
+          {c.items.map((source, index) => <li className="source-item" key={source.citation}>
             <span className="source-number">{String(index + 1).padStart(2, '0')}</span>
             <div>
               <p>{source.citation}</p>
               <div className="source-actions">
-                <a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.open}: ${source.citation} (se abre en una pestaña nueva)`} data-testid={`link-source-${index + 1}`}>{c.open}<ArrowUpRight aria-hidden="true"/></a>
+                {/* Si la fuente todavía no tiene link oficial, se avisa en lugar de mostrar un link vacío. */}
+                {'url' in source
+                  ? <a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`${c.open}: ${source.citation} (se abre en una pestaña nueva)`} data-testid={`link-source-${index + 1}`}>{c.open}<ArrowUpRight aria-hidden="true"/></a>
+                  : <span className="source-pending">{c.noLink}</span>}
                 <CopyButton value={source.citation} label={`${c.copy}: ${source.citation}`} className="source-copy" data-testid={`button-copy-source-${index + 1}`} />
               </div>
             </div>

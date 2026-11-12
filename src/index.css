@@ -122,6 +122,7 @@ p { max-width: 68ch; }
 .brand-sub { display: block; font-family: var(--app-font-mono); font-size: .56rem; letter-spacing: .075em; text-transform: uppercase; color: #677177; margin-top: 3px; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(11px, 1.6vw, 27px); }
 .desktop-nav a, .mobile-nav a { text-decoration: none; font-size: .79rem; font-weight: 700; transition: color .2s; }
+.desktop-nav a { white-space: nowrap; } /* Cada link en un solo renglón. */
 .desktop-nav a:hover, .mobile-nav a:hover { color: #a64c28; }
 .desktop-nav a:last-child { border: 1px solid #c9c4b8; padding: 10px 14px; border-radius: 3px; }
 .menu-toggle { display: none; align-items: center; justify-content: center; gap: 9px; background: transparent; border: 1px solid #b8b7ad; border-radius: 3px; padding: 10px 13px; min-height: 44px; color: #28393e; font-size: .8rem; font-weight: 700; }
@@ -169,7 +170,8 @@ p { max-width: 68ch; }
 .notice-icon { width: 22px; height: 22px; flex: 0 0 auto; color: #316c69; margin-top: 2px; }
 .notice p { margin: 0; font-size: 1rem; }
 .notice strong { font-weight: 700; }
-.verification { display: inline-block; margin-top: 11px; padding: 5px 9px; color: #914322; border: 1px solid #d69c7d; background: #f8e8dc; font-family: var(--app-font-mono); font-size: .66rem; font-weight: 700; letter-spacing: .02em; }
+/* Referencia normativa debajo del aviso: discreta, en tipografía mono como las demás etiquetas. */
+.notice .notice-reference { margin-top: 10px; color: #3f6864; font-family: var(--app-font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .02em; }
 .table-wrap { border: 1px solid #d2d1c7; background: #fffdf8; }
 .table-caption { padding: 20px 24px; background: #28393e; color: #f4f1e9; display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
 .table-caption h3 { margin: 0; font-size: 1.3rem; letter-spacing: -.02em; }
@@ -180,6 +182,46 @@ p { max-width: 68ch; }
 .ssr-table td { vertical-align: top; padding: 18px 24px; border-top: 1px solid #e3e0d7; font-size: .95rem; line-height: 1.55; overflow-wrap: anywhere; }
 .ssr-table tbody tr:nth-child(even) { background: #f9f7f1; }
 .table-code { color: #ab4c27; font-size: .82rem; }
+
+/* Cuestionario "¿Qué asistencia necesito?": tarjeta clara con botones grandes y foco bien visible. */
+.quiz-section { background: #f4f0e7; }
+.quiz-card { position: relative; border: 1px solid #d4cec0; background: #faf8f2; padding: clamp(26px, 3.3vw, 49px); }
+.quiz-card::before { content: ''; position: absolute; inset: -1px auto -1px -1px; width: 4px; background: #397572; }
+.quiz-step .micro { color: #af542f; display: block; margin-bottom: 12px; }
+.quiz-step h3 { font-size: clamp(1.4rem, 2.3vw, 2rem); margin: 0 0 26px; }
+.quiz-step h3:focus { outline: none; } /* El título recibe foco por código, no hace falta el recuadro. */
+.quiz-answers { display: flex; flex-wrap: wrap; gap: 12px; }
+.quiz-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; min-width: 120px; padding: 12px 26px; border: 1.5px solid #28393e; border-radius: 3px; background: transparent; color: #28393e; font-size: 1.05rem; font-weight: 700; transition: background .2s, color .2s; }
+.quiz-button:hover { background: #28393e; color: #f4f1e9; }
+.quiz-button.primary { background: #28393e; color: #f4f1e9; margin-top: 22px; }
+.quiz-button.primary:hover { background: #3a5157; }
+.quiz-button svg { width: 18px; height: 18px; }
+.quiz-fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.quiz-fieldset legend { padding: 0; }
+.quiz-fieldset legend h3 { margin-bottom: 8px; }
+.quiz-hint { color: #647076; font-size: .9rem; margin: 0 0 16px; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-option { display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 12px 16px; border: 1px solid #d4cec0; background: #fffdf8; font-size: 1rem; cursor: pointer; }
+.quiz-option:hover { border-color: #91aaa3; }
+.quiz-option:has(input:checked) { border-color: #397572; background: #e9eee9; }
+.quiz-option input { width: 22px; height: 22px; flex: 0 0 auto; accent-color: #316c69; }
+.quiz-codes { list-style: none; margin: 0 0 26px; padding: 0; }
+.quiz-codes li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; padding: 15px 0; border-top: 1px solid #ddd6c9; }
+.quiz-codes p { margin: 0; line-height: 1.55; }
+.quiz-result h4 { font-family: var(--app-font-mono); font-size: .69rem; letter-spacing: .11em; text-transform: uppercase; color: #356b69; margin: 0 0 10px; }
+.quiz-say { font-size: 1.05rem; background: #fffdf8; border: 1px dashed #c9c4b8; padding: 16px 18px; }
+.quiz-warning { display: flex; align-items: flex-start; gap: 14px; margin: 24px 0; padding: 18px 20px; background: #f8e8dc; border-left: 4px solid #b7552c; color: #5a2a15; }
+.quiz-warning svg { width: 22px; height: 22px; flex: 0 0 auto; color: #a64c28; margin-top: 2px; }
+.quiz-warning p { margin: 0; }
+
+/* Sección "Si algo salió mal": pasos numerados con la misma línea que el resto de las tarjetas. */
+.complaints-section { background: #f8f6f0; }
+.complaint-steps { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid #cbc8bd; }
+.complaint-step { padding: 26px 0; border-bottom: 1px solid #cbc8bd; }
+.complaint-step .micro { color: #af542f; }
+.complaint-step h3 { font-size: clamp(1.3rem, 2vw, 1.75rem); margin: 10px 0 12px; }
+.complaint-step p { margin: 0; line-height: 1.7; }
+.complaint-tip { margin-bottom: 0; }
 
 .journey-section { background: #e9ede9; }
 .journey-section .section-lead { color: #4e5e61; }
@@ -225,6 +267,7 @@ p { max-width: 68ch; }
 .source-copy:hover { background: #f6dfd1; color: #58311e; }
 .source-copy:focus-visible { outline: 2px solid #397572; outline-offset: 2px; }
 .source-copy[data-copied='true'] { color: #316c69; border-color: #91aaa3; background: #e9eee9; }
+.source-pending { font-family: var(--app-font-mono); font-size: .7rem; color: #914322; background: #f6dfd1; padding: 5px 9px; }
 .source-label { font-family: var(--app-font-mono); font-size: .62rem; color: #3f6864; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; border: 1px solid #91aaa3; padding: 6px 9px; }
 .site-footer { background: #28393e; color: #f1eee6; padding: 42px 0; }
 .footer-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
@@ -232,17 +275,21 @@ p { max-width: 68ch; }
 .footer-inner p { margin: 0; font-size: .86rem; color: #cfd9d5; }
 .footer-mark { font-family: var(--app-font-serif); font-size: 2.8rem; font-weight: 800; line-height: 1; letter-spacing: -.07em; color: #e1a07c; }
 
-@media (max-width: 1050px) {
-  .desktop-nav { gap: 12px; }
-  .desktop-nav a { font-size: .71rem; }
+@media (max-width: 1320px) {
+  .desktop-nav { gap: 14px; }
+  .desktop-nav a { font-size: .74rem; }
   .brand-sub { display: none; }
 }
-@media (max-width: 850px) {
+/* Con ocho secciones el menú horizontal ya no entra en pantallas medianas:
+   por debajo de 1180px se usa el menú desplegable. */
+@media (max-width: 1180px) {
   .desktop-nav { display: none; }
   .menu-toggle { display: inline-flex; }
   .mobile-nav { display: block; border-top: 1px solid #d9d5c9; padding: 8px 24px 19px; background: #f7f4ec; }
   .mobile-nav[hidden] { display: none; }
   .mobile-nav a { display: block; padding: 11px max(0px, calc((100vw - 1220px) / 2)); border-bottom: 1px solid #e4dfd3; font-size: .92rem; }
+}
+@media (max-width: 850px) {
   .hero-inner { grid-template-columns: 1fr  .7fr; }
   .hero h1 { font-size: clamp(3rem, 6vw, 5rem); }
   .section-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -281,6 +328,9 @@ p { max-width: 68ch; }
   .hero h1 { font-size: clamp(2.75rem, 12vw, 3.4rem); }
   .hero-link { width: 100%; justify-content: space-between; }
   .notice { padding: 18px; gap: 11px; }
+  /* En celulares chicos los botones Sí/No ocupan todo el ancho, más fáciles de tocar. */
+  .quiz-answers .quiz-button, .quiz-button.primary { flex: 1 1 100%; width: 100%; }
+  .quiz-codes li { grid-template-columns: 1fr; gap: 6px; }
   .table-caption { display: block; padding: 18px; }
   .table-caption span { display: block; margin-top: 5px; }
   .ssr-table th { padding: 10px 12px; }

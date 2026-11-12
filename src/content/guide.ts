@@ -10,7 +10,15 @@ export type Regulation = {
   pending?: boolean;
 };
 export type Definition = { source: string; text: string; note: string };
-export type Source = { citation: string; url: string };
+// La URL es opcional: si todavía no tenemos el link oficial, la cita se muestra sin botón para abrirla.
+export type Source = { citation: string; url?: string };
+// Cada pregunta de Sí/No indica a qué paso se va con cada respuesta.
+// Un paso puede ser otra pregunta ('stairs', 'cabin', 'extra') o un código de movilidad.
+export type QuizStepId = 'walk' | 'stairs' | 'cabin';
+export type QuizTarget = QuizStepId | 'extra' | 'WCHR' | 'WCHS' | 'WCHC';
+export type QuizQuestion = { id: QuizStepId; text: string; yes: QuizTarget; no: QuizTarget };
+export type QuizExtraOption = { code: string; label: string };
+export type ComplaintStep = { title: string; body: string };
 
 export const guide = {
   metadata: {
@@ -22,8 +30,11 @@ export const guide = {
     { id: 'inicio', label: 'Inicio' },
     { id: 'que-es-pmr', label: '¿Qué es un PMR?' },
     { id: 'asistencia', label: 'Pedir asistencia' },
+    // Etiquetas cortas para que el menú de escritorio entre en una sola línea.
+    { id: 'cuestionario', label: '¿Qué necesito?' },
     { id: 'circuito', label: 'El circuito' },
     { id: 'normativa', label: 'Normativa' },
+    { id: 'reclamos', label: 'Si algo salió mal' },
     { id: 'fuentes', label: 'Fuentes' },
   ] satisfies NavigationItem[],
   accessibility: {
@@ -77,8 +88,9 @@ export const guide = {
     index: '02 / ANTES DE VIAJAR',
     title: 'Cómo pedir asistencia',
     lead: 'La solicitud anticipada permite comunicar las necesidades de asistencia a la aerolínea antes de llegar al aeropuerto. Según el Decreto 809/2024, el transportador debe ofrecer check-in prioritario y gratuito y la asistencia requerida, salvo causa probada que ponga en riesgo la seguridad operacional.',
-    notice: 'Avisá a la aerolínea con al menos 48 horas de anticipación. El plazo figura en el artículo 31 del Anexo I del Decreto 809/2024, y IATA también lo recomienda.',
-    verification: 'Fuente: Decreto 809/2024, Anexo I, art. 31 · IATA, mejores prácticas de códigos SSR',
+    // Dato confirmado: ya no lleva el cartel de "a verificar", solo la referencia normativa.
+    notice: 'Si necesitás atención especial, avisá al transportador con al menos 48 horas de anticipación. El transportador debe brindarte check-in prioritario y gratuito, y la asistencia que requieras, sujeta a los servicios disponibles en el aeródromo.',
+    noticeReference: '(Decreto 809/2024, art. 31)',
     tableTitle: 'Códigos IATA SSR',
     tableDetail: 'DEFINICIONES DE IATA',
     columnCode: 'Código',
@@ -98,8 +110,44 @@ export const guide = {
       { code: 'WCOB', meaning: 'El pasajero necesita una silla de a bordo provista por la aerolínea.' },
     ] satisfies SsrCode[],
   },
+  // Cuestionario "¿Qué asistencia necesito?". Las explicaciones de cada código
+  // no se repiten acá: el componente las toma de assistance.codes.
+  quiz: {
+    index: '03 / ORIENTACIÓN',
+    title: '¿Qué asistencia necesito?',
+    lead: 'Respondé unas preguntas de Sí o No y te sugerimos qué códigos de asistencia pedirle a la aerolínea.',
+    questionLabel: 'Pregunta',
+    yes: 'Sí',
+    no: 'No',
+    questions: [
+      { id: 'walk', text: '¿Podés caminar distancias largas dentro del aeropuerto sin ayuda?', yes: 'extra', no: 'stairs' },
+      { id: 'stairs', text: '¿Podés subir y bajar escaleras?', yes: 'WCHR', no: 'cabin' },
+      { id: 'cabin', text: '¿Podés caminar por tus medios desde la puerta del avión hasta tu asiento?', yes: 'WCHS', no: 'WCHC' },
+    ] satisfies QuizQuestion[],
+    extraQuestion: '¿Necesitás además apoyo por alguno de estos motivos?',
+    extraHint: 'Podés marcar más de una opción.',
+    extraOptions: [
+      { code: 'BLND', label: 'Disminución visual' },
+      { code: 'DEAF', label: 'Disminución auditiva' },
+      { code: 'DPNA', label: 'Discapacidad intelectual o del desarrollo' },
+    ] satisfies QuizExtraOption[],
+    noneOption: 'Ninguno',
+    showResult: 'Ver resultado',
+    resultTitle: 'Códigos sugeridos',
+    noCodesResult: 'Según tus respuestas, no surge un código de asistencia. Si igual necesitás ayuda en algún momento del viaje, consultalo con la aerolínea.',
+    sayTitle: 'Qué decirle a la aerolínea al reservar',
+    // {codigos} se reemplaza por la lista de códigos, por ejemplo "WCHR y BLND".
+    sayTemplate: '«Hola, quiero solicitar asistencia especial para mi vuelo. Por favor, registren en mi reserva el código {codigos}.»',
+    // Versión en plural, para cuando el resultado tiene más de un código.
+    sayTemplatePlural: '«Hola, quiero solicitar asistencia especial para mi vuelo. Por favor, registren en mi reserva los códigos {codigos}.»',
+    // {codigos} también se usa en el anuncio para lectores de pantalla.
+    announcement: 'Resultado listo. Códigos sugeridos: {codigos}.',
+    announcementNone: 'Resultado listo. No surge un código de asistencia.',
+    warning: 'Esta herramienta es orientativa. La aerolínea es quien registra la asistencia en tu reserva. Avisá con al menos 48 horas de anticipación.',
+    restart: 'Volver a empezar',
+  },
   journey: {
-    index: '03 / PASO A PASO',
+    index: '04 / PASO A PASO',
     title: 'El circuito en el aeropuerto',
     lead: 'Cinco momentos para visualizar el recorrido, desde la comunicación inicial hasta la llegada.',
     stages: [
@@ -107,11 +155,11 @@ export const guide = {
       { number: '02', title: 'Check-in', detail: 'Se realiza el registro, incluido el control de baterías de sillas de ruedas.' },
       { number: '03', title: 'Pre-embarque', detail: 'Los pasajeros que requieren asistencia embarcan primero.' },
       { number: '04', title: 'A bordo', detail: 'No pueden ubicarse en filas de salida de emergencia.' },
-      { number: '05', title: 'Desembarque', detail: 'Descienden al final; puede utilizarse un Ambulift.' },
+      { number: '05', title: 'Desembarque', detail: 'El orden de desembarque depende de los procedimientos de cada aerolínea y de las condiciones de seguridad. Puede usarse manga, ambulift o silla de pasillo, y el personal de tierra recibe al pasajero para acompañarlo hasta equipajes o la salida.' },
     ] satisfies JourneyStage[],
   },
   regulations: {
-    index: '04 / MARCO DE REFERENCIA',
+    index: '05 / MARCO DE REFERENCIA',
     title: 'Qué dice la normativa',
     lead: 'Normas y referencias para situar la asistencia en el transporte aéreo. Los apartados pendientes se señalan de manera explícita.',
     cards: [
@@ -142,12 +190,32 @@ export const guide = {
     comparisonLabel: 'UNA DIFERENCIA DE ORGANIZACIÓN',
     comparison: 'UE: paga el aeropuerto. EE. UU. / Latinoamérica: paga la aerolínea.',
   },
+  // Sección "Si algo salió mal": pasos para reclamar, en lenguaje simple.
+  complaints: {
+    index: '06 / RECLAMOS',
+    title: 'Si algo salió mal',
+    lead: 'Si la asistencia no fue la que correspondía, podés reclamar. Estos son los pasos.',
+    stepLabel: 'Paso',
+    steps: [
+      {
+        title: 'Reclamá primero a la aerolínea',
+        body: 'Según la Resolución ANAC 774/2025, cada aerolínea debe tener al menos un canal gratuito y accesible para reclamos (físico, electrónico o telefónico), darte un número de reclamo único y responder dentro de los 30 días hábiles administrativos. Además, deben ayudarte si tenés dificultades para usar esos canales.',
+      },
+      {
+        title: 'Si no se resuelve, pedí una conciliación en la ANAC',
+        body: 'Podés recurrir al Servicio de Conciliación para Pasajeros de Transporte Aéreo de la ANAC, creado por el Decreto 809/2024 y reglamentado por la Resolución ANAC 188/2026. Es voluntario y gratuito, se inicia desde el sitio web de la ANAC, y la instancia de conciliación dura como máximo 30 días hábiles administrativos.',
+      },
+    ] satisfies ComplaintStep[],
+    tipLabel: 'Consejo',
+    tip: 'Guardá el número de reclamo y toda la documentación del viaje.',
+  },
   sources: {
-    index: '05 / DOCUMENTACIÓN',
+    index: '07 / DOCUMENTACIÓN',
     title: 'Fuentes',
     lead: 'Referencias primarias para consultar los textos normativos. Formato de presentación APA 7.',
     primary: 'Fuente primaria',
     open: 'Consultar fuente',
+    noLink: 'Link oficial pendiente',
     copy: 'Copiar cita',
     items: [
       {
@@ -169,6 +237,16 @@ export const guide = {
       {
         citation: 'Administración Nacional de Aviación Civil. (2026, 3 de febrero). AIC A 04/2026: Tasas por servicios aeroportuarios.',
         url: 'https://ais.anac.gob.ar/descarga/aic-6982971483fdc',
+      },
+      {
+        // TODO: agregar link oficial del Boletín Oficial
+        // TODO: completar día y mes de publicación en la cita.
+        citation: 'Resolución 774/2025. (2025). Administración Nacional de Aviación Civil. Boletín Oficial de la República Argentina.',
+      },
+      {
+        // TODO: agregar link oficial del Boletín Oficial
+        // TODO: completar día y mes de publicación en la cita.
+        citation: 'Resolución 188/2026. (2026). Administración Nacional de Aviación Civil. Boletín Oficial de la República Argentina.',
       },
       {
         citation: 'International Air Transport Association. (s. f.). Best practices on the application of SSR codes and assistance service.',
