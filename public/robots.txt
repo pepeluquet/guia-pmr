@@ -1,2 +1,7 @@
+# Bloqueo temporal: la página no debe aparecer en buscadores hasta que el
+# trabajo de Práctica Profesional Supervisada esté evaluado.
+# Se puede revertir después de la evaluación, volviendo a:
+#   User-agent: *
+#   Allow: /
 User-agent: *
-Allow: /
+Disallow: /
