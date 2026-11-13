@@ -1,6 +1,8 @@
 # Guía PMR
 
-Guía informativa sobre asistencia a pasajeros con movilidad reducida (PMR) en el transporte aéreo argentino. Hecha con React, Vite, TypeScript y Tailwind CSS.
+Página de apoyo académico al trabajo de Práctica Profesional Supervisada "Asistencia a Pasajeros con Movilidad Reducida (PMR) en el Ámbito Aeroportuario" (UTN, Tecnicatura Universitaria en Gestión Aeronáutica, Grupo 1). Hecha con React, Vite, TypeScript y Tailwind CSS.
+
+La guía práctica para pasajeros está en otro proyecto: [pmr-pasajero](https://github.com/pepeluquet/pmr-pasajero). Las reglas de este proyecto están en `CLAUDE.md`.
 
 ## Cómo correrla
 

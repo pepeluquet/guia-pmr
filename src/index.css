@@ -135,7 +135,8 @@ p { max-width: 68ch; }
 .hero-inner { position: relative; min-height: 620px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 30px; padding-block: 82px 100px; }
 .hero-copy { position: relative; z-index: 1; }
 .hero .eyebrow { color: #e4a480; }
-.hero h1 { font-size: clamp(3.25rem, 5.35vw, 6.45rem); font-weight: 700; max-width: 720px; margin: 25px 0 26px; }
+/* El título del trabajo es largo: la letra es más chica que en una portada de una sola frase. */
+.hero h1 { font-size: clamp(2.5rem, 4vw, 4.6rem); font-weight: 700; max-width: 760px; margin: 25px 0 26px; }
 .hero h1 em { color: #dfa17e; font-style: normal; }
 .hero-intro { color: #d2d9d6; font-size: clamp(1.1rem, 1.5vw, 1.32rem); line-height: 1.7; max-width: 520px; margin-bottom: 32px; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
@@ -164,14 +165,13 @@ p { max-width: 68ch; }
 .definition-list p { margin: 0 0 8px; font-size: 1.02rem; line-height: 1.6; }
 .definition-list small { color: #647076; font-size: .82rem; line-height: 1.5; display: block; }
 .card-note { color: #647076; font-size: .85rem; margin: 22px 0 0; }
+/* Columna derecha del marco conceptual: tarjeta de definiciones y, debajo, la tabla SSR. */
+.concepts-body { display: grid; gap: 28px; min-width: 0; }
 
-.assistance-section { background: #f8f6f0; }
 .notice { display: flex; align-items: flex-start; gap: 18px; background: #e9eee9; border-left: 4px solid #397572; padding: 23px 26px; margin-bottom: 48px; }
 .notice-icon { width: 22px; height: 22px; flex: 0 0 auto; color: #316c69; margin-top: 2px; }
 .notice p { margin: 0; font-size: 1rem; }
 .notice strong { font-weight: 700; }
-/* Referencia normativa debajo del aviso: discreta, en tipografía mono como las demás etiquetas. */
-.notice .notice-reference { margin-top: 10px; color: #3f6864; font-family: var(--app-font-mono); font-size: .72rem; font-weight: 700; letter-spacing: .02em; }
 .table-wrap { border: 1px solid #d2d1c7; background: #fffdf8; }
 .table-caption { padding: 20px 24px; background: #28393e; color: #f4f1e9; display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
 .table-caption h3 { margin: 0; font-size: 1.3rem; letter-spacing: -.02em; }
@@ -183,55 +183,27 @@ p { max-width: 68ch; }
 .ssr-table tbody tr:nth-child(even) { background: #f9f7f1; }
 .table-code { color: #ab4c27; font-size: .82rem; }
 
-/* Cuestionario "¿Qué asistencia necesito?": tarjeta clara con botones grandes y foco bien visible. */
-.quiz-section { background: #f4f0e7; }
-.quiz-card { position: relative; border: 1px solid #d4cec0; background: #faf8f2; padding: clamp(26px, 3.3vw, 49px); }
-.quiz-card::before { content: ''; position: absolute; inset: -1px auto -1px -1px; width: 4px; background: #397572; }
-.quiz-step .micro { color: #af542f; display: block; margin-bottom: 12px; }
-.quiz-step h3 { font-size: clamp(1.4rem, 2.3vw, 2rem); margin: 0 0 26px; }
-.quiz-step h3:focus { outline: none; } /* El título recibe foco por código, no hace falta el recuadro. */
-.quiz-answers { display: flex; flex-wrap: wrap; gap: 12px; }
-.quiz-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; min-width: 120px; padding: 12px 26px; border: 1.5px solid #28393e; border-radius: 3px; background: transparent; color: #28393e; font-size: 1.05rem; font-weight: 700; transition: background .2s, color .2s; }
-.quiz-button:hover { background: #28393e; color: #f4f1e9; }
-.quiz-button.primary { background: #28393e; color: #f4f1e9; margin-top: 22px; }
-.quiz-button.primary:hover { background: #3a5157; }
-.quiz-button svg { width: 18px; height: 18px; }
-.quiz-fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
-.quiz-fieldset legend { padding: 0; }
-.quiz-fieldset legend h3 { margin-bottom: 8px; }
-.quiz-hint { color: #647076; font-size: .9rem; margin: 0 0 16px; }
-.quiz-options { display: grid; gap: 10px; }
-.quiz-option { display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 12px 16px; border: 1px solid #d4cec0; background: #fffdf8; font-size: 1rem; cursor: pointer; }
-.quiz-option:hover { border-color: #91aaa3; }
-.quiz-option:has(input:checked) { border-color: #397572; background: #e9eee9; }
-.quiz-option input { width: 22px; height: 22px; flex: 0 0 auto; accent-color: #316c69; }
-.quiz-codes { list-style: none; margin: 0 0 26px; padding: 0; }
-.quiz-codes li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; padding: 15px 0; border-top: 1px solid #ddd6c9; }
-.quiz-codes p { margin: 0; line-height: 1.55; }
-.quiz-result h4 { font-family: var(--app-font-mono); font-size: .69rem; letter-spacing: .11em; text-transform: uppercase; color: #356b69; margin: 0 0 10px; }
-.quiz-say { font-size: 1.05rem; background: #fffdf8; border: 1px dashed #c9c4b8; padding: 16px 18px; }
-.quiz-warning { display: flex; align-items: flex-start; gap: 14px; margin: 24px 0; padding: 18px 20px; background: #f8e8dc; border-left: 4px solid #b7552c; color: #5a2a15; }
-.quiz-warning svg { width: 22px; height: 22px; flex: 0 0 auto; color: #a64c28; margin-top: 2px; }
-.quiz-warning p { margin: 0; }
-
-/* Sección "Si algo salió mal": pasos numerados con la misma línea que el resto de las tarjetas. */
-.complaints-section { background: #f8f6f0; }
-.complaint-steps { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid #cbc8bd; }
-.complaint-step { padding: 26px 0; border-bottom: 1px solid #cbc8bd; }
-.complaint-step .micro { color: #af542f; }
-.complaint-step h3 { font-size: clamp(1.3rem, 2vw, 1.75rem); margin: 10px 0 12px; }
-.complaint-step p { margin: 0; line-height: 1.7; }
-.complaint-tip { margin-bottom: 0; }
-
 .journey-section { background: #e9ede9; }
 .journey-section .section-lead { color: #4e5e61; }
-.timeline { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding-top: 25px; }
+.timeline { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); padding-top: 25px; }
 .stage { position: relative; border-top: 1px solid #7d9997; padding: 37px clamp(12px, 2vw, 28px) 8px 0; }
 .stage::before { content: ''; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: #2e6968; box-shadow: 0 0 0 5px #e9ede9; }
 .stage:last-child { border-top-color: transparent; }
 .stage-number { color: #356c6a; }
 .stage h3 { margin: 18px 0 12px; font-size: clamp(1.1rem, 1.6vw, 1.45rem); }
 .stage p { color: #47595c; font-size: .92rem; line-height: 1.65; margin: 0; }
+
+/* Etapa 06 del circuito: instancias de reclamo, separadas de la línea de tiempo por un filete. */
+.circuit-complaints { margin-top: clamp(56px, 7vw, 88px); padding-top: clamp(40px, 5vw, 60px); border-top: 1px solid #b9c5bf; }
+.circuit-complaints .micro { color: #356c6a; }
+.circuit-complaints-title { font-size: clamp(1.7rem, 3vw, 2.6rem); margin: 12px 0 16px; }
+.complaint-steps { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid #b9c5bf; }
+.complaint-step { padding: 26px 0; border-bottom: 1px solid #b9c5bf; }
+.complaint-step .micro { color: #af542f; }
+.complaint-step h4 { font-family: var(--app-font-serif); font-size: clamp(1.3rem, 2vw, 1.75rem); line-height: 1.13; letter-spacing: -.045em; margin: 10px 0 12px; }
+.complaint-step p { margin: 0; line-height: 1.7; }
+/* El aviso tiene el mismo verde claro que el fondo de la sección: se aclara para que se distinga. */
+.complaint-tip { margin-bottom: 0; background: #f8f6f0; }
 
 .rules-section { background: #f7f4ec; }
 .rules-layout { display: grid; grid-template-columns: 1.08fr .92fr; gap: 20px; }
@@ -280,7 +252,7 @@ p { max-width: 68ch; }
   .desktop-nav a { font-size: .74rem; }
   .brand-sub { display: none; }
 }
-/* Con ocho secciones el menú horizontal ya no entra en pantallas medianas:
+/* El menú horizontal no entra en pantallas medianas:
    por debajo de 1180px se usa el menú desplegable. */
 @media (max-width: 1180px) {
   .desktop-nav { display: none; }
@@ -291,10 +263,11 @@ p { max-width: 68ch; }
 }
 @media (max-width: 850px) {
   .hero-inner { grid-template-columns: 1fr  .7fr; }
-  .hero h1 { font-size: clamp(3rem, 6vw, 5rem); }
+  .hero h1 { font-size: clamp(2.3rem, 4.6vw, 3.2rem); }
   .section-grid { grid-template-columns: 1fr; gap: 20px; }
   .section-grid .section-head { max-width: 720px; }
-  .timeline { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* Seis etapas no entran en una fila en tablet: se muestran en dos filas de tres. */
+  .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 36px; }
   .stage { padding-right: 11px; }
 }
 @media (max-width: 700px) {
@@ -302,7 +275,7 @@ p { max-width: 68ch; }
   .header-inner { min-height: 68px; }
   .hero { min-height: 0; }
   .hero-inner { min-height: 0; grid-template-columns: 1fr; padding-block: 72px 150px; }
-  .hero h1 { font-size: clamp(3rem, 12vw, 5.2rem); }
+  .hero h1 { font-size: clamp(2.1rem, 7.5vw, 3rem); }
   .hero-intro { font-size: 1.07rem; }
   .route-art { position: absolute; width: 280px; right: -90px; bottom: -75px; opacity: .24; pointer-events: none; }
   .hero-bottom { bottom: 31px; }
@@ -325,12 +298,9 @@ p { max-width: 68ch; }
   .brand-mark { width: 35px; height: 35px; }
   .brand-name { font-size: .91rem; }
   .menu-toggle { padding: 9px 10px; }
-  .hero h1 { font-size: clamp(2.75rem, 12vw, 3.4rem); }
+  .hero h1 { font-size: clamp(1.85rem, 8.2vw, 2.3rem); }
   .hero-link { width: 100%; justify-content: space-between; }
   .notice { padding: 18px; gap: 11px; }
-  /* En celulares chicos los botones Sí/No ocupan todo el ancho, más fáciles de tocar. */
-  .quiz-answers .quiz-button, .quiz-button.primary { flex: 1 1 100%; width: 100%; }
-  .quiz-codes li { grid-template-columns: 1fr; gap: 6px; }
   .table-caption { display: block; padding: 18px; }
   .table-caption span { display: block; margin-top: 5px; }
   .ssr-table th { padding: 10px 12px; }
