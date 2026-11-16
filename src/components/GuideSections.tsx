@@ -11,18 +11,18 @@ function RouteIllustration() {
   return (
     <div className="route-art" aria-hidden="true">
       <svg viewBox="0 0 550 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="270" cy="245" r="188" stroke="#91ADA5" strokeOpacity=".21"/>
-        <circle cx="270" cy="245" r="143" stroke="#91ADA5" strokeOpacity=".24"/>
-        <circle cx="270" cy="245" r="97" stroke="#91ADA5" strokeOpacity=".22"/>
-        <path d="M40 246H505M269 21V474" stroke="#91ADA5" strokeOpacity=".15"/>
-        <path d="M83 337C138 373 190 377 233 305C278 230 305 145 383 165C428 176 447 211 469 190" stroke="#E6AA86" strokeWidth="2.5" strokeDasharray="5 11" strokeLinecap="round"/>
-        <circle cx="82" cy="337" r="7" fill="#E6AA86"/><circle cx="469" cy="190" r="7" fill="#E6AA86"/>
-        <circle cx="82" cy="337" r="16" stroke="#E6AA86" strokeOpacity=".48"/>
-        <circle cx="469" cy="190" r="16" stroke="#E6AA86" strokeOpacity=".48"/>
-        <path d="m271 206 14 31 64 12-64 12-14 31-13-31-65-12 65-12 13-31Z" fill="#D4E0D7" fillOpacity=".88"/>
-        <path d="m271 207 14 31 64 11-78 1v-43Z" fill="#E6AA86"/>
-        <path d="M119 91h45M141 69v44M397 366h48M421 343v46" stroke="#91ADA5" strokeOpacity=".43" strokeWidth="1.5"/>
-        <path d="M39 443h105M39 453h61M404 50h90M447 60h47" stroke="#91ADA5" strokeOpacity=".3"/>
+        <circle cx="270" cy="245" r="188" className="route-light-stroke" strokeOpacity=".21"/>
+        <circle cx="270" cy="245" r="143" className="route-light-stroke" strokeOpacity=".24"/>
+        <circle cx="270" cy="245" r="97" className="route-light-stroke" strokeOpacity=".22"/>
+        <path d="M40 246H505M269 21V474" className="route-light-stroke" strokeOpacity=".15"/>
+        <path d="M83 337C138 373 190 377 233 305C278 230 305 145 383 165C428 176 447 211 469 190" className="route-light-stroke" strokeWidth="2.5" strokeDasharray="5 11" strokeLinecap="round"/>
+        <circle cx="82" cy="337" r="7" className="route-light-fill"/><circle cx="469" cy="190" r="7" className="route-light-fill"/>
+        <circle cx="82" cy="337" r="16" className="route-light-stroke" strokeOpacity=".48"/>
+        <circle cx="469" cy="190" r="16" className="route-light-stroke" strokeOpacity=".48"/>
+        <path d="m271 206 14 31 64 12-64 12-14 31-13-31-65-12 65-12 13-31Z" className="route-light-fill" fillOpacity=".88"/>
+        <path d="m271 207 14 31 64 11-78 1v-43Z" className="route-light-fill"/>
+        <path d="M119 91h45M141 69v44M397 366h48M421 343v46" className="route-light-stroke" strokeOpacity=".43" strokeWidth="1.5"/>
+        <path d="M39 443h105M39 453h61M404 50h90M447 60h47" className="route-light-stroke" strokeOpacity=".3"/>
       </svg>
     </div>
   );
