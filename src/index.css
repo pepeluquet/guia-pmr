@@ -174,6 +174,12 @@ p { max-width: 68ch; }
 .hero-link:hover { transform: translateY(-2px); text-decoration: underline; text-underline-offset: 4px; }
 .hero-link.primary { background: var(--color-fondo-tarjeta); color: var(--color-primario); }
 .hero-link svg { width: 16px; height: 16px; }
+/* Aviso de la guía para pasajeros: separado de los botones con una línea, para que se lea
+   como un dato aparte y no como un tercer botón de navegación interna. */
+.hero-companion { max-width: 520px; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--color-linea-sobre-azul); }
+.hero-companion p { margin: 8px 0 10px; color: var(--color-fondo-tarjeta); }
+.companion-link { display: inline-flex; align-items: center; gap: 8px; color: var(--color-fondo-tarjeta); font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.companion-link svg { width: 16px; height: 16px; }
 .route-art { width: min(100%, 550px); justify-self: end; opacity: .98; }
 .route-art svg { display: block; width: 100%; height: auto; overflow: visible; }
 /* Colores del dibujo de la ruta: todo en blanco (las transparencias están en el propio SVG). */
@@ -279,6 +285,8 @@ p { max-width: 68ch; }
 .footer-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .footer-index { color: var(--color-fondo-tarjeta); margin-bottom: 13px; }
 .footer-inner p { margin: 0; font-size: 1rem; color: var(--color-fondo-tarjeta); }
+.footer-inner p + p { margin-top: 10px; }
+.footer-link { color: var(--color-fondo-tarjeta); text-decoration: underline; text-underline-offset: 4px; }
 .footer-mark { font-size: 2.8rem; font-weight: 500; line-height: 1; color: var(--color-fondo-tarjeta); }
 
 @media (max-width: 1320px) {

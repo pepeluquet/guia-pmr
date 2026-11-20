@@ -28,6 +28,19 @@ function RouteIllustration() {
   );
 }
 
+// Aviso en Inicio que lleva a la guía para pasajeros. Se abre en la misma pestaña:
+// abrir pestañas nuevas sin avisar desorienta a quien navega con lector de pantalla.
+function CompanionNote() {
+  const c = guide.companion;
+  return (
+    <div className="hero-companion">
+      <span className="micro">{c.label}</span>
+      <p>{c.text}</p>
+      <a href={c.url} className="companion-link" data-testid="link-companion">{c.linkLabel}<ArrowUpRight aria-hidden="true"/></a>
+    </div>
+  );
+}
+
 export function HeroSection() {
   const c = guide.hero;
   return (
@@ -44,6 +57,7 @@ export function HeroSection() {
             <a href={`#${c.actionPrimary.target}`} className="hero-link primary" data-testid="link-hero-concepts">{c.actionPrimary.label}<ArrowDownRight aria-hidden="true"/></a>
             <a href={`#${c.actionSecondary.target}`} className="hero-link" data-testid="link-hero-journey">{c.actionSecondary.label}<ArrowDownRight aria-hidden="true"/></a>
           </div>
+          <CompanionNote />
         </div>
         <RouteIllustration />
         <div className="hero-bottom">{c.bottom}</div>
@@ -202,5 +216,16 @@ export function SourcesSection() {
 }
 
 export function SiteFooter() {
-  return <footer className="site-footer"><div className="container footer-inner"><div><div className="footer-index">{guide.footer.index}</div><p>{guide.footer.text}</p></div><span className="footer-mark" aria-hidden="true">PMR.</span></div></footer>;
+  return (
+    <footer className="site-footer">
+      <div className="container footer-inner">
+        <div>
+          <div className="footer-index">{guide.footer.index}</div>
+          <p>{guide.footer.text}</p>
+          <p><a href={guide.companion.url} className="footer-link" data-testid="link-footer-companion">{guide.companion.footerLinkLabel}</a></p>
+        </div>
+        <span className="footer-mark" aria-hidden="true">PMR.</span>
+      </div>
+    </footer>
+  );
 }

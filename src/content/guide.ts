@@ -44,6 +44,15 @@ export const guide = {
     actionSecondary: { label: 'Circuito de asistencia', target: 'circuito' },
     bottom: 'PRÁCTICA PROFESIONAL SUPERVISADA',
   },
+  // Página hermana: la guía para pasajeros es la aplicación práctica del trabajo.
+  // Se enlaza en Inicio (visible) y en el pie; allá hay un enlace de vuelta, más discreto.
+  companion: {
+    label: 'APLICACIÓN PRÁCTICA',
+    text: 'Como aplicación práctica del trabajo se desarrolló una guía para pasajeros, redactada en lenguaje sencillo.',
+    linkLabel: 'Ver la guía para pasajeros',
+    footerLinkLabel: 'Guía para pasajeros',
+    url: 'https://pmr-pasajero.web.app',
+  },
   // Marco conceptual: definiciones de PMR y códigos SSR de IATA.
   definition: {
     index: '01 / MARCO CONCEPTUAL',
